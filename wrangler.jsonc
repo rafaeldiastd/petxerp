@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "petxerp",
+  "main": "server/index.ts",
+  "compatibility_date": "2026-01-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "assets": {
+    // SPA: qualquer rota desconhecida cai no index.html; /api/* sempre passa pelo Worker
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "r2_buckets": [
+    { "binding": "BUCKET", "bucket_name": "petxerp-uploads" }
+  ],
+  "durable_objects": {
+    "bindings": [{ "name": "REALTIME", "class_name": "RealtimeHub" }]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["RealtimeHub"] }
+  ],
+  "vars": {
+    "APP_NAME": "Petx ERP"
+  }
+  // Segredos (wrangler secret put / .dev.vars):
+  //   DATABASE_URL, BETTER_AUTH_SECRET, BETTER_AUTH_URL, ENCRYPTION_KEY
+}

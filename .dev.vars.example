@@ -1,0 +1,13 @@
+# Copie para .dev.vars (desenvolvimento) e use `wrangler secret put` em produção.
+
+# Connection string do Neon (Dashboard > Connect). Use a URL *pooled* (-pooler).
+DATABASE_URL="postgresql://USER:PASSWORD@ep-xxxx-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require"
+
+# Segredo do Better Auth — gere com: openssl rand -base64 32
+BETTER_AUTH_SECRET="troque-por-um-segredo-longo-e-aleatorio"
+
+# URL pública do app (em dev, a do Vite)
+BETTER_AUTH_URL="http://localhost:5173"
+
+# Chave para cifrar credenciais de pagamento (Stripe/Mercado Pago). Se vazia, usa BETTER_AUTH_SECRET.
+ENCRYPTION_KEY="outro-segredo-longo-e-aleatorio"
